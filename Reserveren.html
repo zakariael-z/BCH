@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BCH Rent A Car - Accueil</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #ffffff;
+            color: #333;
+            padding: 1rem 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        header img {
+            width: 250px;
+            max-height: 80px;
+            margin: 0 auto;
+        }
+
+        .menuBut {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            z-index: 10; /* Ensure the menu button is above other elements */
+        }
+
+        .bar1, .bar2, .bar3 {
+            width: 30px;
+            height: 5px;
+            background-color: #484948;
+            margin: 3px 0;
+            transition: 0.4s;
+        }
+
+        .change .bar1 {
+            transform: translate(0, 11px) rotate(-45deg);
+        }
+
+        .change .bar2 {opacity: 0;}
+
+        .change .bar3 {
+            transform: translate(0, -11px) rotate(45deg);
+        }
+
+        .overlay {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            overflow-x: hidden;
+            transition: 0.5s;
+        }
+
+        .overlay-content {
+            position: relative;
+            top: 25%;
+            width: 90%;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .overlay a {
+            padding: 8px;
+            text-decoration: none;
+            font-size: 36px;
+            color: #ffffff;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .overlay a:hover, .overlay a:focus {
+            color: #f4cc3c;
+        }
+
+        .overlay .closebtn {
+            position: absolute;
+            top: 20px;
+            right: 45px;
+            font-size: 60px;
+        }
+        .selected-lang {
+            background: none;
+            border: none;
+            font-size: 1rem;
+            color: #333;
+            cursor: pointer;
+            position: absolute;
+            top: 45px;
+            right: 10px;
+            z-index: 10; 
+            display: flex;
+            justify-content: space-between;
+            line-height: 2;
+            width: 65px;
+        }
+
+        .selected-lang:before{
+            content: "";
+            display: block;
+            width: 32px;
+            height: 32px;
+            background-image: url(https://flagsapi.com/NL/flat/32.png);
+        }
+    
+
+        .lang-menu ul {
+            margin: 0;
+            padding: 0;
+            background-color: #ffffffe5;
+            border: 1px solid #f8f8f8 ;
+            box-shadow: 0px 1px 10px rgb(0, 0, 0, 0.2);
+            position: absolute;
+            top: 74px;
+            right: 0.5px;
+            z-index: 10;
+            border-radius: 5px;
+            display: none;
+            position: absolute;
+        }
+        
+        .lang-menu ul li {
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .lang-menu ul li :hover { 
+            background-color: #f4cc3c;
+        }
+
+        .lang-menu ul li a {
+            text-decoration: none;
+            width: 110px;
+            display: block;
+            padding: 5px 10px ;
+            color: #333;
+        }
+
+        .lang-menu ul li .nl::before {
+            background-image: url(https://flagsapi.com/NL/flat/32.png);
+        }
+        .lang-menu ul li .en::before {
+            background-image: url(https://flagsapi.com/US/flat/32.png);
+        }
+
+        .lang-menu ul li a::before{
+            content: "";
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            vertical-align: middle;
+            margin-right: 10px;
+            background-image: url(https://flagsapi.com/FR/flat/32.png);
+        }
+        .lang-menu:hover ul{
+            display:block
+        }
+        
+
+        footer {
+            background-color: #ffffff;
+            color: #333335;
+            text-align: center;
+            padding: 1rem 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        @media (min-width: 800px){
+
+            .selected-lang {
+                position: absolute;
+                top: 45px;
+                right: 150px;
+                
+            }
+            .lang-menu ul {
+            position: absolute;
+            top: 74px;
+            right: 117px;}
+        }
+
+       
+        @media (min-width: 700px){
+            .selected-lang {
+                position: absolute;
+                top: 45px;
+                right: 70px;
+                
+            }
+            .lang-menu ul {
+            position: absolute;
+            top: 74px;
+            right: 37px;}
+
+            .menuBut {
+                position: absolute;
+                top: 50%;
+                left: 70px;
+                
+            }
+        }
+
+        /*Mise en Page*/
+
+
+        /*Mise en Page*/
+
+        .container {
+            padding: 2rem;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .section h2 {
+            margin-bottom: 1rem;
+        }
+
+        .section p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            height: 100px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #f4cc3c;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+        }
+
+        .button:hover {
+            background-color: #e3b72c;
+        }
+
+        .hero {
+            background-image: url('img/GT63.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            position: relative;
+        }
+
+        .hero h1 {
+            color: #ffffff;
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            padding: 10px;
+        }
+        .info-message {
+            background-color: #df3a11;
+            color: #fff;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div id="myNav" class="overlay">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <div class="overlay-content">
+                    <a href="Index_nl.html">Home</a>
+                    <a href="Catalogus.html">Catalogus</a>
+                    <a href="Services_nl.html">Onze services</a>
+                    <a href="Contact_nl.html">Contact</a>
+                    <a href="Reserveren.html">Reserveren</a>
+                </div>
+            </div>
+            <div class="menuBut" onclick="openNav()">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>
+            <script>
+                function openNav() {
+                    document.getElementById("myNav").style.width = "100%";
+                }
+                function closeNav() {
+                    document.getElementById("myNav").style.width = "0%";
+                }
+            </script>
+            <a href="Index_nl.html"><img src="img/Logo reduit.JPG" alt="Logo"></a>
+            
+            <div class="lang-menu">
+                <div class="selected-lang">
+                    NL
+                </div>
+    
+                <ul>
+                    <li>
+                        <a href="Reservation.html" class="fr">FR</a>
+                    </li>
+                    <li>
+                        <a href="Reserveren.html" class="nl">NL</a>
+                    </li>
+                    <li>
+                        <a href="reservation_en.html" class="en">EN</a>
+                    </li>
+                </ul>
+    
+            </div>
+        </nav>
+        </header>
+
+    <div class="hero">
+        <h1></h1>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <div class="info-message">  
+            <p>
+
+                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0,0,256,256"
+                style="fill:#000000;">
+                <g fill="#f4cc3c" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.12,5.12)"><path d="M25,2c-12.703,0 -23,10.297 -23,23c0,12.703 10.297,23 23,23c12.703,0 23,-10.297 23,-23c0,-12.703 -10.297,-23 -23,-23zM25,11c1.657,0 3,1.343 3,3c0,1.657 -1.343,3 -3,3c-1.657,0 -3,-1.343 -3,-3c0,-1.657 1.343,-3 3,-3zM29,38h-2h-4h-2v-2h2v-13h-2v-2h2h4v2v13h2z"></path></g></g>
+                </svg>  <br>
+                Na het invullen van deze boekingsaanvraag nemen we contact met je op om de details en beschikbaarheid door te nemen voordat de boeking definitief wordt gemaakt. De boeking wordt pas bevestigd als je een bevestigingsmail hebt ontvangen.
+           </p>
+           
+        </div>
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfhzzOwaZ1Kb6wpxCaYilp727nRYzZgIsRTwMaHdzzyOuakcA/viewform?embedded=true" width="590" height="1900" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>      </div>
+    </div>
+</body>
+<footer>
+    © BCH Rent A Car - Since 2021
+</footer>
+</body>
+</html>

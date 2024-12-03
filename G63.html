@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BCH</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #ffffff;
+        color: #333;
+        line-height: 1.6;
+    }
+
+    header {
+        background-color: #ffffff;
+        color: #333;
+        padding: 1rem 0;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: relative;
+    }
+
+    header img {
+        width: 250px;
+        max-height: 80px;
+        margin: 0 auto;
+    }
+
+    .menuBut {
+        position: absolute;
+        top: 50%;
+        left: 20px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        z-index: 10; /* Ensure the menu button is above other elements */
+    }
+
+    .bar1, .bar2, .bar3 {
+        width: 30px;
+        height: 5px;
+        background-color: #484948;
+        margin: 3px 0;
+        transition: 0.4s;
+    }
+
+    .change .bar1 {
+        transform: translate(0, 11px) rotate(-45deg);
+    }
+
+    .change .bar2 {opacity: 0;}
+
+    .change .bar3 {
+        transform: translate(0, -11px) rotate(45deg);
+    }
+
+    .overlay {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        background-color: rgba(0, 0, 0, 0.9);
+        overflow-x: hidden;
+        transition: 0.5s;
+    }
+
+    .overlay-content {
+        position: relative;
+        top: 25%;
+        width: 90%;
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .overlay a {
+        padding: 8px;
+        text-decoration: none;
+        font-size: 36px;
+        color: #ffffff;
+        display: block;
+        transition: 0.3s;
+    }
+
+    .overlay a:hover, .overlay a:focus {
+        color: #f4cc3c;
+    }
+
+    .overlay .closebtn {
+        position: absolute;
+        top: 20px;
+        right: 45px;
+        font-size: 60px;
+    }
+    .selected-lang {
+        background: none;
+        border: none;
+        font-size: 1rem;
+        color: #333;
+        cursor: pointer;
+        position: absolute;
+        top: 45px;
+        right: 10px;
+        z-index: 10; 
+        display: flex;
+        justify-content: space-between;
+        line-height: 2;
+        width: 65px;
+    }
+
+    .selected-lang:before{
+        content: "";
+        display: block;
+        width: 32px;
+        height: 32px;
+        background-image: url(https://flagsapi.com/FR/flat/32.png);
+    }
+
+
+    .lang-menu ul {
+        margin: 0;
+        padding: 0;
+        background-color: #ffffffe5;
+        border: 1px solid #f8f8f8 ;
+        box-shadow: 0px 1px 10px rgb(0, 0, 0, 0.2);
+        position: absolute;
+        top: 74px;
+        right: 0.5px;
+        z-index: 10;
+        border-radius: 5px;
+        display: none;
+        position: absolute;
+    }
+    
+    .lang-menu ul li {
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .lang-menu ul li :hover { 
+        background-color: #f4cc3c;
+    }
+
+    .lang-menu ul li a {
+        text-decoration: none;
+        width: 110px;
+        display: block;
+        padding: 5px 10px ;
+        color: #333;
+    }
+
+    .lang-menu ul li .nl::before {
+        background-image: url(https://flagsapi.com/NL/flat/32.png);
+    }
+    .lang-menu ul li .en::before {
+        background-image: url(https://flagsapi.com/US/flat/32.png);
+    }
+
+    .lang-menu ul li a::before{
+        content: "";
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        vertical-align: middle;
+        margin-right: 10px;
+        background-image: url(https://flagsapi.com/FR/flat/32.png);
+    }
+    .lang-menu:hover ul{
+        display:block
+    }
+    
+
+    footer {
+        background-color: #ffffff;
+        color: #333335;
+        text-align: center;
+        padding: 1rem 0;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+
+    @media (min-width: 800px){
+
+        .selected-lang {
+            position: absolute;
+            top: 45px;
+            right: 150px;
+            
+        }
+        .lang-menu ul {
+        position: absolute;
+        top: 74px;
+        right: 117px;}
+    }
+
+   
+    @media (min-width: 700px){
+        .selected-lang {
+            position: absolute;
+            top: 45px;
+            right: 70px;
+            
+        }
+        .lang-menu ul {
+        position: absolute;
+        top: 74px;
+        right: 37px;}
+
+        .menuBut {
+            position: absolute;
+            top: 50%;
+            left: 70px;
+            
+        }
+    }
+
+    
+
+    /*Mise en Page*/
+    .hero {
+        background-image: url('img/G3_Fond.jpg'); /* Remplacer par l'image réelle */
+        background-size: cover;
+        background-position: center;
+        height: 400px;
+        position: relative;
+    }
+
+    .hero h1 {
+        color: #fff;
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        padding: 10px;
+    }
+
+    .container {
+        flex: 1;
+        display: flex;
+        justify-content: space-around;
+        padding: 2rem;
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    .specs {
+        width: 45%;
+    }
+
+    .specs h2 {
+        margin-bottom: 1rem;
+    }
+
+    .specs ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .specs ul li {
+        background: #f4f4f4;
+        margin-bottom: 10px;
+        padding: 10px;
+    }
+
+    .carousel {
+        width: 45%;
+        position: relative;
+    }
+
+    .mySlides {
+        display: none;
+    }
+
+    .cursor {
+        cursor: pointer;
+    }
+
+    .prev,
+    .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        padding: 16px;
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+        -webkit-user-select: none;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+
+    .prev:hover,
+    .next:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .numbertext {
+        color: #f2f2f2;
+        font-size: 12px;
+        padding: 8px 12px;
+        position: absolute;
+        top: 0;
+    }
+
+    .caption-container {
+        text-align: center;
+        background-color: #f4cc3c;
+        padding: 2px 16px;
+        color: white;
+    }
+
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    .column {
+        float: left;
+        width: 16.66%;
+    }
+
+    .demo {
+        opacity: 0.6;
+    }
+
+    .active,
+    .demo:hover {
+        opacity: 1;
+    }
+
+    .calendar-container {
+        padding: 2rem;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .calendar-container iframe {
+        border: none;
+        width: 100%;
+        height: 600px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .calendar-title {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 1rem;
+        color: #484848;
+    }
+</style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div id="myNav" class="overlay">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <div class="overlay-content">
+                    <a href="index.html">Accueil</a>
+                    <a href="Catalogue.html">Catalogue</a>
+                    <a href="Services.html">Nos services</a>
+                    <a href="Contact.html">Contact</a>
+                    <a href="Reservation.html">Réservation</a>
+                </div>
+            </div>
+            <div class="menuBut" onclick="openNav()">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>
+            <script>
+                function openNav() {
+                    document.getElementById("myNav").style.width = "100%";
+                }
+                function closeNav() {
+                    document.getElementById("myNav").style.width = "0%";
+                }
+            </script>
+            <a href="index.html"><img src="img/Logo reduit.JPG" alt="Logo"></a>
+            
+            <div class="lang-menu">
+                <div class="selected-lang">
+                    FR
+                </div>
+    
+                <ul>
+                    <li>
+                        <a href="#" class="fr">FR</a>
+                    </li>
+                    <li>
+                        <a href="#" class="nl">NL</a>
+                    </li>
+                    <li>
+                        <a href="#" class="en">EN</a>
+                    </li>
+                </ul>
+    
+            </div>
+        </nav>
+        </header>
+    
+    <div class="hero">
+        <h1></h1>
+    </div>
+
+    <div class="container">
+        <div class="specs">
+            <h2>À propos de la Mercedes Benz Classe G63</h2>
+            <p>Le Mercedes Benz Classe G63 est un SUV de luxe qui incarne la puissance, le confort et le design emblématique. Connu pour ses capacités hors-route exceptionnelles et ses performances sur route, le G63 offre une expérience de conduite inégalée.</p>
+            <p>Avec son moteur V8 biturbo, ses finitions intérieures raffinées et ses technologies de pointe, le G63 se distingue comme un véhicule de choix pour ceux qui recherchent à la fois le luxe et la robustesse.</p>
+            <h2>Caractéristiques</h2>
+            <ul>
+                <li><strong>Marque :</strong> Mercedes Benz</li>
+                <li><strong>Modèle :</strong> Classe G63</li>
+                <li><strong>Puissance :</strong> 585 ch</li>
+                <li><strong>Carburant :</strong> Essence</li>
+                <li><strong>Transmission :</strong> Automatique à 9 rapports</li>
+                <li><strong>Nombre de places :</strong> 5</li>
+            </ul>
+            <h2>Prix :</h2>
+            <ul>
+                <li><strong>Par jour (en semaine) :</strong> 500,00€</li>
+                <li><strong>Weekend (48h) :</strong> 1.300,00€</li>
+                <li><strong>Weekend (72h) :</strong> 1.800,00€</li>
+                <li><strong>Semaine (7 jours) :</strong> 4.000,00€</li>
+                <li><strong>Mois :</strong> 10.000,00€</li>
+                <li><strong>Garantie :</strong> 8.000,00
+            </ul>
+        </div>
+
+        <div class="carousel">
+            <div class="mySlides">
+                <div class="numbertext">1 / 6</div>
+                <img src="img/Classe G Avant.png" style="width:100%">
+            </div>
+        
+            <div class="mySlides">
+                <div class="numbertext">2 / 6</div>
+                <img src="img/GLE avant.jpg" style="width:100%">
+            </div>
+        
+            <div class="mySlides">
+                <div class="numbertext">3 / 6</div>
+                <img src="img/GLE400_Arriere.png" style="width:100%">
+            </div>
+        
+            <div class="mySlides">
+                <div class="numbertext">4 / 6</div>
+                <img src="img/GLE400_Interieur.png" style="width:100%">
+            </div>
+        
+            <div class="mySlides">
+                <div class="numbertext">5 / 6</div>
+                <img src="img/GLE400_Tableau.png" style="width:100%">
+            </div>
+        
+            <div class="mySlides">
+                <div class="numbertext">6 / 6</div>
+                <img src="img/GLE400_Toit.png" style="width:100%">
+            </div>
+    
+        
+            
+        
+            <div class="row">
+                <div class="column">
+                    <img class="demo cursor" src="img/Classe G Avant.png" style="width:100%" onclick="currentSlide(1)" alt="Mercedes GLE400 Avant">
+                </div>
+                <div class="column">
+                    <img class="demo cursor" src="img/GLE400_Cote.png" style="width:100%" onclick="currentSlide(2)" alt="Mercedes GLE400 Côté">
+                </div>
+                <div class="column">
+                    <img class="demo cursor" src="img/GLE400_Arriere.png" style="width:100%" onclick="currentSlide(3)" alt="Mercedes GLE400 Arrière">
+                </div>
+                <div class="column">
+                    <img class="demo cursor" src="img/GLE400_Interieur.png" style="width:100%" onclick="currentSlide(4)" alt="Mercedes GLE400 Intérieur">
+                </div>
+                <div class="column">
+                    <img class="demo cursor" src="img/GLE400_Tableau.png" style="width:100%" onclick="currentSlide(5)" alt="Mercedes GLE400 Tableau de bord">
+                </div>
+                <div class="column">
+                    <img class="demo cursor" src="img/GLE400_Toit.png" style="width:100%" onclick="currentSlide(6)" alt="Mercedes GLE400 Toit">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+        
+        function plusSlides(n) {
+          showSlides(slideIndex += n);
+        }
+        
+        function currentSlide(n) {
+          showSlides(slideIndex = n);
+        }
+        
+        function showSlides(n) {
+          let i;
+          let slides = document.getElementsByClassName("mySlides");
+          let dots = document.getElementsByClassName("demo");
+          let captionText = document.getElementById("caption");
+          if (n > slides.length) {slideIndex = 1}
+          if (n < 1) {slideIndex = slides.length}
+          for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+          }
+          for (i = 0; dots && i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+          }
+          slides[slideIndex-1].style.display = "block";
+          dots[slideIndex-1].className += " active";
+          captionText.innerHTML = dots[slideIndex-1].alt;
+        }
+    </script>
+
+    <div class="calendar-container">
+        <h2 class="calendar-title"> Disponibilité</h2>
+        <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=2&ctz=Europe%2FBrussels&bgcolor=%23ffffff&showPrint=0&showTabs=0&showCalendars=0&showTz=0&title=GT63&src=emFrYXJpYTEwMzBAb3V0bG9vay5mcg&color=%23E4C441" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+    </div>
+
+    <footer>
+        © BCH Rent A Car - Since 2021
+    </footer>
+</body>
+</html>

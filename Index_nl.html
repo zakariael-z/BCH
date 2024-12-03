@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BCH Rent A Car - Accueil</title>
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #ffffff;
+            color: #333;
+            padding: 1rem 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        header img {
+            width: 250px;
+            max-height: 80px;
+            margin: 0 auto;
+        }
+
+        .menuBut {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            z-index: 10; /* Ensure the menu button is above other elements */
+        }
+
+        .bar1, .bar2, .bar3 {
+            width: 30px;
+            height: 5px;
+            background-color: #484948;
+            margin: 3px 0;
+            transition: 0.4s;
+        }
+
+        .change .bar1 {
+            transform: translate(0, 11px) rotate(-45deg);
+        }
+
+        .change .bar2 {opacity: 0;}
+
+        .change .bar3 {
+            transform: translate(0, -11px) rotate(45deg);
+        }
+
+        .overlay {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            overflow-x: hidden;
+            transition: 0.5s;
+        }
+
+        .overlay-content {
+            position: relative;
+            top: 25%;
+            width: 90%;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .overlay a {
+            padding: 8px;
+            text-decoration: none;
+            font-size: 36px;
+            color: #ffffff;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .overlay a:hover, .overlay a:focus {
+            color: #f4cc3c;
+        }
+
+        .overlay .closebtn {
+            position: absolute;
+            top: 20px;
+            right: 45px;
+            font-size: 60px;
+        }
+        .selected-lang {
+            background: none;
+            border: none;
+            font-size: 1rem;
+            color: #333;
+            cursor: pointer;
+            position: absolute;
+            top: 45px;
+            right: 10px;
+            z-index: 10; 
+            display: flex;
+            justify-content: space-between;
+            line-height: 2;
+            width: 65px;
+        }
+
+        .selected-lang:before{
+            content: "";
+            display: block;
+            width: 32px;
+            height: 32px;
+            background-image: url(https://flagsapi.com/NL/flat/32.png);
+        }
+    
+
+        .lang-menu ul {
+            margin: 0;
+            padding: 0;
+            background-color: #ffffffe5;
+            border: 1px solid #f8f8f8 ;
+            box-shadow: 0px 1px 10px rgb(0, 0, 0, 0.2);
+            position: absolute;
+            top: 74px;
+            right: 0.5px;
+            z-index: 10;
+            border-radius: 5px;
+            display: none;
+            position: absolute;
+        }
+        
+        .lang-menu ul li {
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .lang-menu ul li :hover { 
+            background-color: #f4cc3c;
+        }
+
+        .lang-menu ul li a {
+            text-decoration: none;
+            width: 110px;
+            display: block;
+            padding: 5px 10px ;
+            color: #333;
+        }
+
+        .lang-menu ul li .nl::before {
+            background-image: url(https://flagsapi.com/NL/flat/32.png);
+        }
+        .lang-menu ul li .en::before {
+            background-image: url(https://flagsapi.com/US/flat/32.png);
+        }
+
+        .lang-menu ul li a::before{
+            content: "";
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            vertical-align: middle;
+            margin-right: 10px;
+            background-image: url(https://flagsapi.com/FR/flat/32.png);
+        }
+        .lang-menu:hover ul{
+            display:block
+        }
+        
+
+        footer {
+            background-color: #ffffff;
+            color: #333335;
+            text-align: center;
+            padding: 1rem 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        @media (min-width: 800px){
+
+            .selected-lang {
+                position: absolute;
+                top: 45px;
+                right: 150px;
+                
+            }
+            .lang-menu ul {
+            position: absolute;
+            top: 74px;
+            right: 117px;}
+        }
+
+       
+        @media (min-width: 700px){
+            .selected-lang {
+                position: absolute;
+                top: 45px;
+                right: 70px;
+                
+            }
+            .lang-menu ul {
+            position: absolute;
+            top: 74px;
+            right: 37px;}
+
+            .menuBut {
+                position: absolute;
+                top: 50%;
+                left: 70px;
+                
+            }
+        }
+
+
+        /*Mise en Page*/
+
+        .hero {
+            background-image: url('img/gle+kiff.PNG');
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            position: relative;
+            color: #ffffff;
+            text-align: center;
+            padding: 5% 0;
+        }
+
+        .hero h1 {
+            margin: 0;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 20px 0;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #eee019;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .button:hover {
+            background-color: #f4cc3c;
+            text-decoration: none;
+        }
+
+        .container {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .section h2 {
+            margin-bottom: 1rem;
+        }
+
+        .section p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .car-carousel {
+            display: flex;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .car-carousel img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .car-carousel .carousel-button {
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 10px;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            background-color: rgba(0, 0, 0, 0.6);
+            cursor: pointer;
+        }
+
+        .car-carousel .prev {
+            left: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .car-carousel .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .carousel-button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+       
+
+        
+    </style>
+</head>
+<body>
+
+    <header>
+    <nav>
+        <div id="myNav" class="overlay">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <div class="overlay-content">
+                <a href="Index_nl.html">Home</a>
+                <a href="Catalogus.html">Catalogus</a>
+                <a href="Services_nl.html">Onze services</a>
+                <a href="Contact_nl.html">Contact</a>
+                <a href="Reserveren.html">Reserveren</a>
+            </div>
+        </div>
+        <div class="menuBut" onclick="openNav()">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+        <script>
+            function openNav() {
+                document.getElementById("myNav").style.width = "100%";
+            }
+            function closeNav() {
+                document.getElementById("myNav").style.width = "0%";
+            }
+        </script>
+        <a href="Index_nl.html"><img src="img/Logo reduit.JPG" alt="Logo"></a>
+        
+        <div class="lang-menu">
+            <div class="selected-lang">
+                NL
+            </div>
+
+            <ul>
+                <li>
+                    <a href="index.html" class="fr">FR</a>
+                </li>
+                <li>
+                    <a href="Index_nl.html" class="nl">NL</a>
+                </li>
+                <li>
+                    <a href="Index_en.html" class="en">EN</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+    </header>
+
+
+    <div class="hero">
+       
+        <br>
+        <br>
+        <br>
+        <br>
+        <a href="Catalogus.html" class="button">Bekijk onze catalogus</a>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <h1>Welkom bij BCH Rent A Car</h1>
+            <h2>Over ons</h2>
+            <p>
+                BCH RENT A CAR is een Belgisch autoverhuurbedrijf. Opgericht in 2021 door J.BCH, heeft het zich snel gevestigd op de Europese markt. We zijn er trots op dat we een gevarieerde vloot nieuwe voertuigen aanbieden, met een gemiddelde leeftijd van één jaar, waaronder modellen van grote merken zoals Mercedes-Benz, Audi en Volkswagen.
+                
+                Of je nu een kleine stadsauto nodig hebt voor je woon-werkverkeer, een compacte auto voor je uitstapje of een ruime stationwagon voor gezinsuitstapjes, wij hebben de auto voor jou. Wij streven naar een superieure service en voertuigen van topklasse om uw tevredenheid te garanderen.
+                
+                Onze vestigingen in heel Europa bieden u een ruime keuze aan voertuigen om aan al uw mobiliteitsbehoeften te voldoen.
+            <br>
+            <br>
+            BCH RENT A CAR biedt je complete en gepersonaliseerde autoverhuuroplossingen om je huurervaring zo eenvoudig en aangenaam mogelijk te maken.
+                
+                    Vertrouw op BCH RENT A CAR voor je volgende huurauto en ontdek de uitmuntendheid van onze klantenservice. Boek vandaag nog je voertuig en reis met een gerust hart!
+            
+            </p>
+                
+            
+        </div>
+
+        <div class="section">
+            <h2>Onze opvallende voertuigen</h2>
+            <div class="car-carousel">
+                <img src="img/SL63.avif" alt="Voiture 1">
+                <img src="img/GT63.jpg" alt="Voiture 2">
+                <img src="img/SERIE.jpg" alt="Voiture 3">
+                <a class="carousel-button prev" onclick="prevSlide()">&#10094;</a>
+                <a class="carousel-button next" onclick="nextSlide()">&#10095;</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentIndex = 0;
+
+        function showSlide(index) {
+            const slides = document.querySelectorAll('.car-carousel img');
+            if (index >= slides.length) {
+                currentIndex = 0;
+            } else if (index < 0) {
+                currentIndex = slides.length - 1;
+            } else {
+                currentIndex = index;
+            }
+            slides.forEach((slide, i) => {
+                slide.style.transform = `translateX(-${currentIndex * 100}%)`;
+            });
+        }
+
+        function nextSlide() {
+            showSlide(currentIndex + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentIndex - 1);
+        }
+    </script>
+
+    <footer>
+        © BCH Rent A Car - Since 2021
+    </footer>
+</body>
+</html>

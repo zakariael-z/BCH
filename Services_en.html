@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nos Services - BCH Rent A Car</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #333;
+            line-height: 1.6;
+        }
+    
+        header {
+            background-color: #ffffff;
+            color: #333;
+            padding: 1rem 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+    
+        header img {
+            width: 250px;
+            max-height: 80px;
+            margin: 0 auto;
+        }
+    
+        .menuBut {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            z-index: 10; /* Ensure the menu button is above other elements */
+        }
+    
+        .bar1, .bar2, .bar3 {
+            width: 30px;
+            height: 5px;
+            background-color: #484948;
+            margin: 3px 0;
+            transition: 0.4s;
+        }
+    
+        .change .bar1 {
+            transform: translate(0, 11px) rotate(-45deg);
+        }
+    
+        .change .bar2 {opacity: 0;}
+    
+        .change .bar3 {
+            transform: translate(0, -11px) rotate(45deg);
+        }
+    
+        .overlay {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            overflow-x: hidden;
+            transition: 0.5s;
+        }
+    
+        .overlay-content {
+            position: relative;
+            top: 25%;
+            width: 90%;
+            text-align: center;
+            margin-top: 30px;
+        }
+    
+        .overlay a {
+            padding: 8px;
+            text-decoration: none;
+            font-size: 36px;
+            color: #ffffff;
+            display: block;
+            transition: 0.3s;
+        }
+    
+        .overlay a:hover, .overlay a:focus {
+            color: #f4cc3c;
+        }
+    
+        .overlay .closebtn {
+            position: absolute;
+            top: 20px;
+            right: 45px;
+            font-size: 60px;
+        }
+        .selected-lang {
+            background: none;
+            border: none;
+            font-size: 1rem;
+            color: #333;
+            cursor: pointer;
+            position: absolute;
+            top: 45px;
+            right: 10px;
+            z-index: 10; 
+            display: flex;
+            justify-content: space-between;
+            line-height: 2;
+            width: 65px;
+        }
+    
+        .selected-lang:before{
+            content: "";
+            display: block;
+            width: 32px;
+            height: 32px;
+            background-image: url(https://flagsapi.com/US/flat/32.png);
+        }
+    
+    
+        .lang-menu ul {
+            margin: 0;
+            padding: 0;
+            background-color: #ffffffe5;
+            border: 1px solid #f8f8f8 ;
+            box-shadow: 0px 1px 10px rgb(0, 0, 0, 0.2);
+            position: absolute;
+            top: 74px;
+            right: 0.5px;
+            z-index: 10;
+            border-radius: 5px;
+            display: none;
+            position: absolute;
+        }
+        
+        .lang-menu ul li {
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+        }
+    
+        .lang-menu ul li :hover { 
+            background-color: #f4cc3c;
+        }
+    
+        .lang-menu ul li a {
+            text-decoration: none;
+            width: 110px;
+            display: block;
+            padding: 5px 10px ;
+            color: #333;
+        }
+    
+        .lang-menu ul li .nl::before {
+            background-image: url(https://flagsapi.com/NL/flat/32.png);
+        }
+        .lang-menu ul li .en::before {
+            background-image: url(https://flagsapi.com/US/flat/32.png);
+        }
+    
+        .lang-menu ul li a::before{
+            content: "";
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            vertical-align: middle;
+            margin-right: 10px;
+            background-image: url(https://flagsapi.com/FR/flat/32.png);
+        }
+        .lang-menu:hover ul{
+            display:block
+        }
+        
+    
+        footer {
+            background-color: #ffffff;
+            color: #333335;
+            text-align: center;
+            padding: 1rem 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    
+        @media (min-width: 800px){
+    
+            .selected-lang {
+                position: absolute;
+                top: 45px;
+                right: 150px;
+                
+            }
+            .lang-menu ul {
+            position: absolute;
+            top: 74px;
+            right: 117px;}
+        }
+    
+       
+        @media (min-width: 700px){
+            .selected-lang {
+                position: absolute;
+                top: 45px;
+                right: 70px;
+                
+            }
+            .lang-menu ul {
+            position: absolute;
+            top: 74px;
+            right: 37px;}
+    
+            .menuBut {
+                position: absolute;
+                top: 50%;
+                left: 70px;
+                
+            }
+        }
+
+        /*Mise en Page*/
+
+        .hero {
+            background-image: url('img/Services.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            position: relative;
+        }
+
+        .hero h1 {
+            color: #ffffff;
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 2rem;
+        }
+
+        .service {
+            margin-bottom: 2rem;
+        }
+
+        .service img {
+            width: 100%;
+            height: auto;
+        }
+
+        .service h2 {
+            margin-top: 0.5rem;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div id="myNav" class="overlay">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <div class="overlay-content">
+                    <a href="Index_en.html">Home</a>
+                    <a href="Catalog_en.html">Catalog</a>
+                    <a href="Services_en.html">Our services</a>
+                    <a href="Contact_en.html">Contact</a>
+                    <a href="Reservation_en.html">Booking</a>
+                </div>
+            </div>
+            <div class="menuBut" onclick="openNav()">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>
+            <script>
+                function openNav() {
+                    document.getElementById("myNav").style.width = "100%";
+                }
+                function closeNav() {
+                    document.getElementById("myNav").style.width = "0%";
+                }
+            </script>
+            <a href="Index_en.html"><img src="img/Logo reduit.JPG" alt="Logo"></a>
+            
+            <div class="lang-menu">
+                <div class="selected-lang">
+                    EN
+                </div>
+    
+                <ul>
+                    <li>
+                        <a href="Services.html" class="fr">FR</a>
+                    </li>
+                    <li>
+                        <a href="Services_nl.html" class="nl">NL</a>
+                    </li>
+                    <li>
+                        <a href="Services_en.html" class="en">EN</a>
+                    </li>
+                </ul>
+    
+            </div>
+        </nav>
+        </header>
+
+    <div class="hero">
+        <h1>Our Services</h1>
+    </div>
+
+    <div class="container">
+        <div class="service">
+            <h2>Car rental</h2>
+            <img src="img/GleFond.jpg" alt="Location de véhicule"> <!-- Remplacer par l'image réelle -->
+            <p>Discover our exclusive range of luxury vehicles, ready to turn every journey into an exceptional experience. Whether you want to drive in style in a Mercedes, BMW or Audi, our top-of-the-range vehicles are at your disposal, impeccably maintained to guarantee your comfort and safety.</p>
+        </div>
+
+        <div class="service">
+            <h2>Chauffeur-driven services</h2>
+            <img src="img/prestation-vtc-chauffeur-prive.jpg" alt="Prestations avec chauffeur"> <!-- Remplacer par l'image réelle -->
+            <p>Experience the ultimate in luxury with our private chauffeur service. Our professional and courteous chauffeurs offer you a smooth and pleasant drive, ideal for your business meetings, special events or airport transfers. Relax and let us take care of you..</p>
+        </div>
+
+        <div class="service">
+            <h2>Photo shoots / Video clips</h2>
+            <img src="img/shoot4.jpg" alt="Shooting photo / Clips vidéo"> <!-- Remplacer par l'image réelle -->
+            <p>Add a touch of elegance and sophistication to your projects with our luxury vehicles available for photo shoots and music videos. Perfect for advertising campaigns, weddings, film productions or music videos, our cars will add a unique dimension to your visual creations.</p>
+        </div>
+    </div>
+
+    <footer>
+        © BCH Rent A Car - Since 2021
+    </footer>
+</body>
+</html>
